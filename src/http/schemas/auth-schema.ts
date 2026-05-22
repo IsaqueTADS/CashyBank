@@ -1,0 +1,22 @@
+import z from 'zod'
+
+export const RegisterBodySchema = z.object({
+  name: z.string().min(3, 'Nome precisa ter pelo menos 3 caracteres'),
+  email: z.string().email('Email inválido'),
+  password: z.string().min(6, 'A senha deve conter no mínimo 6 caracteres'),
+})
+
+export const AuthenticateBodySchema = z.object({
+  email: z.string().email('Email inválido'),
+  password: z.string(),
+})
+
+export const AuthResponseSchema = z.object({
+  token: z.string(),
+  user: z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    created_at: z.date(),
+  }),
+})
