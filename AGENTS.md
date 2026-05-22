@@ -13,6 +13,11 @@ pnpm db:migrate:deploy  # prisma migrate deploy (CI)
 pnpm db:seed        # tsx prisma/seed.ts
 pnpm db:generate    # prisma generate
 pnpm db:studio      # prisma studio
+pnpm db:status      # prisma migrate status
+pnpm db:test:migrate    # migrate test DB (.env.test)
+pnpm db:test:migrate:deploy  # deploy test migrations
+pnpm db:test:seed   # seed test DB
+pnpm db:test:studio # studio on test DB
 ```
 
 ## Test quirks
