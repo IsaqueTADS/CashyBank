@@ -1,45 +1,45 @@
-import pkg from '@prisma/client'
-import 'dotenv/config'
+import { uuidv7 } from 'uuidv7'
+import { prisma } from '../src/lib/prisma'
 
-const { PrismaClient } = pkg
+const ENTRADA_ID = '234c0d06-2983-4fcc-a942-1fa3684ebc55'
+const SAIDA_ID = '43f8ea6f-43bc-4cfc-be37-0ff2a802f195'
 
-const ENTRADA_ID = '019e4f29-c8c0-711a-8d69-990290979a99'
-const SAIDA_ID = '019e4f29-c8c3-746f-917e-2c4058ca9953'
+const TYPES = [
+  { id: ENTRADA_ID, name: 'Entrada' },
+  { id: SAIDA_ID, name: 'Saída' },
+]
 
 const CATEGORIAS = [
-  { id: '019e4f29-c8c3-746f-917e-2c41f5157aff', name: 'Casa' },
-  { id: '019e4f29-c8c3-746f-917e-2c4212c4944b', name: 'Academia' },
-  { id: '019e4f29-c8c3-746f-917e-2c43881365dc', name: 'Saúde' },
-  { id: '019e4f29-c8c3-746f-917e-2c449defc45b', name: 'Aluguel' },
-  { id: '019e4f29-c8c3-746f-917e-2c4525b24561', name: 'Trabalho' },
-  { id: '019e4f29-c8c3-746f-917e-2c467fdfd1ee', name: 'Freelance' },
-  { id: '019e4f29-c8c3-746f-917e-2c47aea4882f', name: 'Emergência' },
-  { id: '019e4f29-c8c3-746f-917e-2c48bf2e4163', name: 'Reforma' },
+  { id: uuidv7(), name: 'Casa' },
+  { id: uuidv7(), name: 'Academia' },
+  { id: uuidv7(), name: 'Saúde' },
+  { id: uuidv7(), name: 'Aluguel' },
+  { id: uuidv7(), name: 'Trabalho' },
+  { id: uuidv7(), name: 'Freelance' },
+  { id: uuidv7(), name: 'Emergência' },
+  { id: uuidv7(), name: 'Reforma' },
 ]
 
 async function seed() {
-  const prisma = new PrismaClient()
-
   console.log('🌱 Seeding...')
 
-  for (const type of [
-    { id: ENTRADA_ID, name: 'Entrada' },
-    { id: SAIDA_ID, name: 'Saída' },
-  ]) {
-    await prisma.transactionType.upsert({
-      where: { id: type.id },
-      update: { name: type.name },
-      create: type,
-    })
-  }
+  await prisma.$transaction(async (tx) => {
+    for (const type of TYPES) {
+      await tx.transactionType.upsert({
+        where: { id: type.id },
+        update: { name: type.name },
+        create: type,
+      })
+    }
 
-  for (const category of CATEGORIAS) {
-    await prisma.transactionCategory.upsert({
-      where: { id: category.id },
-      update: { name: category.name },
-      create: category,
-    })
-  }
+    for (const category of CATEGORIAS) {
+      await tx.transactionCategory.upsert({
+        where: { id: category.id },
+        update: { name: category.name },
+        create: category,
+      })
+    }
+  })
 
   console.log('✅ Seed completed!')
   await prisma.$disconnect()
