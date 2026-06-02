@@ -1,4 +1,3 @@
-import type { CreateTransactionDTO } from '@/dtos/transaction/create-transaction.dto.js'
 import type { Transaction } from '@/dtos/transaction/transaction.js'
 import type { TransactionsRepository } from '@/repositories/transactions-repository.js'
 

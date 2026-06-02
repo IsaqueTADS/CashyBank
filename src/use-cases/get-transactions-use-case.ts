@@ -1,6 +1,8 @@
 import type { Transaction } from '@/dtos/transaction/transaction.js'
-import type { TransactionTotals } from '@/repositories/transactions-repository.js'
-import type { TransactionsRepository } from '@/repositories/transactions-repository.js'
+import type {
+  TransactionsRepository,
+  TransactionTotals,
+} from '@/repositories/transactions-repository.js'
 
 interface GetTransactionsUseCaseRequest {
   user_id: string

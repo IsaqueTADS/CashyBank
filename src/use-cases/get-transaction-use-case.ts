@@ -16,7 +16,8 @@ export class GetTransactionUseCase {
   async execute({
     transaction_id,
   }: GetTransactionUseCaseRequest): Promise<GetTransactionUseCaseResponse> {
-    const transaction = await this.transactionsRepository.findById(transaction_id)
+    const transaction =
+      await this.transactionsRepository.findById(transaction_id)
 
     if (!transaction) {
       throw new ResourceNotFoundError('Transação')

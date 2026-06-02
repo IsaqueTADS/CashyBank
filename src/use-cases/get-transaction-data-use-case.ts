@@ -1,4 +1,7 @@
-import type { TransactionCategory, TransactionType } from '@/dtos/transaction/transaction.js'
+import type {
+  TransactionCategory,
+  TransactionType,
+} from '@/dtos/transaction/transaction.js'
 import { prisma } from '@/lib/prisma.js'
 
 interface GetTransactionDataUseCaseResponse {
