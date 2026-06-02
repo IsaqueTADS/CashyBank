@@ -14,7 +14,9 @@ export class InMemoryTransactionsRepository implements TransactionsRepository {
   public categories: TransactionCategory[] = []
 
   async findById(id: string) {
-    const transaction = this.items.find((item) => item.id === id)
+    const transaction = this.items.find(
+      (item) => item.id === id && !item.deleted_at,
+    )
     if (!transaction) return null
     return this.enrich(transaction)
   }
