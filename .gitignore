@@ -75,4 +75,5 @@ Desktop.ini
 docker-compose.override.yml
 generated/
 generated/*
+uploads/
 

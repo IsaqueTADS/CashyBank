@@ -9,7 +9,9 @@ import { transactionsRoutes } from './http/controllers/transactions/routes.js'
 import { usersRoutes } from './http/controllers/users/routes.js'
 import { corsPlugin } from './http/plugins/cors.js'
 import { errorHandlerPlugin } from './http/plugins/error-handler.js'
+import { fastifyStaticPlugin } from './http/plugins/fastify-static.js'
 import { jwtPlugin } from './http/plugins/jwt.js'
+import { multipartPlugin } from './http/plugins/multipart.js'
 import { swaggerPlugin } from './http/plugins/swagger.js'
 
 const envToLogger = {
@@ -37,6 +39,8 @@ await app.register(swaggerPlugin)
 await app.register(jwtPlugin)
 await app.register(errorHandlerPlugin)
 await app.register(corsPlugin)
+await app.register(multipartPlugin)
+await app.register(fastifyStaticPlugin)
 
 app.register(usersRoutes)
 app.register(transactionsRoutes)
