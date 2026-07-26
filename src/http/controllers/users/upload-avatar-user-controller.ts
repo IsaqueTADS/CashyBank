@@ -65,6 +65,7 @@ export async function uploadAvatarUserController(
   return reply.status(200).send({
     user: {
       ...user,
+      imageUrl: imageUrl,
       password_hash: undefined,
     },
   })

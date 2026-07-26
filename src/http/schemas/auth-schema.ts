@@ -11,8 +11,7 @@ export const AuthenticateBodySchema = z.object({
   password: z.string(),
 })
 
-export const AuthResponseSchema = z.object({
-  token: z.string(),
+export const User = z.object({
   user: z.object({
     id: z.string(),
     name: z.string(),
@@ -20,4 +19,13 @@ export const AuthResponseSchema = z.object({
     imageUrl: z.string().optional().nullable(),
     created_at: z.date(),
   }),
+})
+
+export const AuthResponseSchema = z.object({
+  token: z.string(),
+  user: User.shape.user,
+})
+
+export const UploadAvatarUserResponseSchema = z.object({
+  user: User.shape.user,
 })
