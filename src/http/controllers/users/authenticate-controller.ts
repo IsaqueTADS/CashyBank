@@ -33,6 +33,7 @@ export async function authenticateController(
         id: user.id,
         name: user.name,
         email: user.email,
+        imageUrl: user.image_url,
         created_at: user.created_at,
       },
     })
