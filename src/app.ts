@@ -35,11 +35,11 @@ export const app = fastify({
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 
+await app.register(multipartPlugin)
 await app.register(swaggerPlugin)
 await app.register(jwtPlugin)
 await app.register(errorHandlerPlugin)
 await app.register(corsPlugin)
-await app.register(multipartPlugin)
 await app.register(fastifyStaticPlugin)
 
 app.register(usersRoutes)

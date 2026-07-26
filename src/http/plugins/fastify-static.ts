@@ -3,13 +3,13 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import fastifyStatic from '@fastify/static'
 import type { FastifyInstance } from 'fastify'
+import fp from 'fastify-plugin'
 import { FailedToCreateUploadDirector } from '../errors/failed-to-create-upload-directory.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-console.log()
-export const fastifyStaticPlugin = async (fastify: FastifyInstance) => {
+export const fastifyStaticPlugin = fp(async (fastify: FastifyInstance) => {
   const uploadDir = path.join(__dirname, '..', '..', '..', 'uploads')
 
   try {
@@ -18,8 +18,8 @@ export const fastifyStaticPlugin = async (fastify: FastifyInstance) => {
     throw new FailedToCreateUploadDirector()
   }
 
-  fastify.register(fastifyStatic, {
+  await fastify.register(fastifyStatic, {
     root: uploadDir,
     prefix: '/uploads',
   })
-}
+})

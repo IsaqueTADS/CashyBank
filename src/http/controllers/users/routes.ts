@@ -1,14 +1,15 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
 import {
-  RegisterBodySchema,
   AuthenticateBodySchema,
   AuthResponseSchema,
+  RegisterBodySchema,
 } from '@/http/schemas/auth-schema.js'
 import { ErrorSchema } from '@/http/schemas/error-schema.js'
 import { ValidationErrorSchema } from '@/http/schemas/validation-error-schema.js'
-import { registerController } from './register-controller.js'
 import { authenticateController } from './authenticate-controller.js'
+import { registerController } from './register-controller.js'
+import { uploadAvatarUserController } from './upload-avatar-user-controller.js'
 
 export const usersRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
@@ -40,5 +41,17 @@ export const usersRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     handler: authenticateController,
+  })
+
+  app.route({
+    method: 'PATCH',
+    url: '/me/avatar',
+    schema: {
+      security: [{ bearerAuth: [] }],
+      consumes: ['multipart/form-data'],
+      tags: ['me'],
+      summary: 'Upload avatar user',
+    },
+    handler: uploadAvatarUserController,
   })
 }
