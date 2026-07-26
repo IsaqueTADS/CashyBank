@@ -10,6 +10,7 @@ import { ValidationErrorSchema } from '@/http/schemas/validation-error-schema.js
 import { authenticateController } from './authenticate-controller.js'
 import { registerController } from './register-controller.js'
 import { uploadAvatarUserController } from './upload-avatar-user-controller.js'
+import { VerifyJWT } from '@/http/middlewares/verify-jwt.js'
 
 export const usersRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
@@ -52,6 +53,8 @@ export const usersRoutes: FastifyPluginAsyncZod = async (app) => {
       tags: ['me'],
       summary: 'Upload avatar user',
     },
+    preHandler: VerifyJWT,
+    onRequest: VerifyJWT,
     handler: uploadAvatarUserController,
   })
 }
